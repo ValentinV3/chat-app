@@ -1,40 +1,53 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import './Contact.css';
 
+class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      online: false,
+    }
+  }
 
-function Contact(props) {
-  return (
-    <figure className="Contact">
+  render() {
+    return (
+      <figure className="Contact">
 
-    <img className="avatar"
-      src={props.avatar}
-      alt={props.name}/>
+        <img className="avatar"
+          src={this.props.avatar}
+          alt={this.props.name}/>
 
-    <div>
+        <div>
 
-      <h2 className="name">{props.name}</h2>
+          <h2 className="name">{this.props.name}</h2>
 
-      <div className="status">
+          <div className="status">
 
-        <p className=
-        {props.online ? 'status-online' : 'status-offline'}
-        />
+            <p className=
+            {this.state.online ? 'status-online' : 'status-offline'}
+            
+              onClick={event => {
+                const newStatus = !this.state.online;
+                this.setState({ online: newStatus });
+              }}
+            
+            />
 
-        <p className='status-text'>
-        {props.online ? 'online' : 'offline'}
-        </p>
+            <p className='status-text'>
+            {this.state.online ? 'online' : 'offline'}
+            </p>
 
-      </div>
-    </div>
-  </figure>
-  );
+          </div>
+        </div>
+      </figure>
+    );
+  }
 }
 
 Contact.propTypes = {
-  avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  online: PropTypes.bool.isRequired
-};
+  avatar: PropTypes.string.isRequired,
+}
 
 export default Contact;
